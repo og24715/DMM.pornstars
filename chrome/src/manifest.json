@@ -1,0 +1,21 @@
+{
+  "name": "DMM.pornstars",
+  "version": "1.0",
+  "description": "Build an Extension!",
+  "manifest_version": 2,
+  "content_scripts": [
+   {
+     "matches": ["http://www.dmm.co.jp/digital/videoa/-/detail/*"],
+     "js": ["detail.bundle.js"]
+   }
+ ],
+ "background": {
+   "scripts": ["background.bundle.js"],
+   "persistent": false
+ },
+ "browser_action": {
+ },
+ "permissions": [
+   "storage", "tabs"
+ ]
+}
