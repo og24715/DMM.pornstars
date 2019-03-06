@@ -1,54 +1,49 @@
 import React from 'react';
-import {
-  Avatar, Card, Icon,
-} from 'antd';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardActions from '@material-ui/core/CardActions';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
 
-import style from './style';
+const pornstarBaseUrl = 'http://www.dmm.co.jp/digital/videoa/-/list/=/article=actress/id=';
 
-export default ({ item, isBlur }) => {
-  const handleDelete = () => {
+function createUnfollowingHandler(id) {
+  return () => {
     chrome.storage.local.get('following', ({ following = [] }) => {
-      const index = following.findIndex(i => i.id === item.id);
-
-      following.splice(index, 1);
-
-      chrome.storage.local.set({ following }, () => {
-        console.log('Value is set to', following);
+      const newFollowing = following.filter(i => i.id !== id);
+      chrome.storage.local.set({ following: newFollowing }, () => {
       });
     });
   };
+}
 
-  const Delete = () => (
-    <Icon type="delete" onClick={handleDelete} />
-  );
-
+function FollowingCard({ item }) {
   return (
-    <a
-      rel="noopener noreferrer"
-      target="_blank"
-      href={`http://www.dmm.co.jp/digital/videoa/-/list/=/article=actress/id=${item.id}/`}
-    >
-      <Card
-        style={{ marginBottom: '15px' }}
-        bordered={false}
-        hoverable
-        actions={[<Delete />]}
-        cover={(
-          <div style={style.imageWrapper}>
-            <img
-              style={Object.assign({}, style.image, isBlur && style.imageBlur)}
-              alt={item.name}
-              src={item.coverArtUrl}
-            />
-          </div>
-      )}
-      >
-        <Card.Meta
-          avatar={<Avatar icon="user" / >}
-          title={item.name}
-          description={null}
-        />
-      </Card>
-    </a>
+    <Card>
+      <CardHeader
+        avatar={(
+          <Avatar aria-label={item.name}>
+            {item.name.slice(0, 1)}
+          </Avatar>
+        )}
+        title={item.name}
+      />
+      <CardMedia
+        image={item.coverArtUrl}
+        title={item.name}
+        style={{ height: 200 }}
+      />
+      <CardActions disableActionSpacing>
+        <Button
+          color="primary"
+          href={`${pornstarBaseUrl}${item.id}`}
+        >
+          出演作品を見る
+        </Button>
+      </CardActions>
+    </Card>
   );
-};
+}
+
+export default FollowingCard;

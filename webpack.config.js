@@ -44,6 +44,7 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       { from: './chrome/src/favorites/index.html', to: 'favorites.html' },
+      { from: './chrome/src/favorites/index.css' },
       { from: './chrome/src/manifest.json' },
     ]),
   ],
