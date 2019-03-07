@@ -52,7 +52,7 @@ const App = () => {
           </IconButton>
         </Toolbar>
 
-        <Grid container spacing="16">
+        <Grid container spacing={16}>
           {followingPornstars.map(pornstar => (
             <Grid item xs={12 / cardCol} key={pornstar.name}>
               <Card item={pornstar}/>
