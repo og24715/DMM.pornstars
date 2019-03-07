@@ -68,7 +68,7 @@ function FollowingCard({ item }) {
         <CardMedia
           image={item.coverArtUrl}
           title={item.name}
-          style={{ height: 250, filter: 'blur(10px)' }}
+          style={{ height: 250 }}
         />
         <CardActions disableActionSpacing>
           <Button
