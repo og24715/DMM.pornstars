@@ -1,5 +1,7 @@
 # DMM.pornstars
 
+![demo](https://user-images.githubusercontent.com/8489199/54007150-c01b4c80-41a3-11e9-9957-bd0bbf80ac37.gif)
+
 ## DMM.pornstars とはなんですか？
 
 DMM.com でお気に入りのAV女優をフォローし、その一覧の表示を可能にする拡張機能です。
@@ -18,12 +20,12 @@ https://chrome.google.com/webstore/detail/dmmpornstars/loclodoeiomdlienjjoolcjjh
 
 ## フォローした女優の一覧を表示する
 
-拡張機能のアイコンをクリックすると chrome-extension://loclodoeiomdlienjjoolcjjhnkkoicj/favorites.html のページが表示されます。
+拡張機能のアイコンをクリックすると [フォローした女優の一覧](chrome-extension://loclodoeiomdlienjjoolcjjhnkkoicj/favorites.html) のページが表示されます。
 これはあなたがお気に入りした女優の一覧を表示します。
 
 ## 女優の詳細を調べる
 
-フォローした女優の名前の隣に more vert icon が見えますか？それをクリックするとその女優の詳細を [Wikipedia](https://ja.wikipedia.org/wiki) と (このAV女優の名前教えてwiki)[https://seesaawiki.jp/av_neme] で見ることが出来ます。
+フォローした女優の名前の隣に more vert icon が見えますか？それをクリックするとその女優の詳細を [Wikipedia](https://ja.wikipedia.org/wiki) と [このAV女優の名前教えてwiki](https://seesaawiki.jp/av_neme) で見ることが出来ます。
 
 ## 貢献したいですか？
 
@@ -31,7 +33,7 @@ https://chrome.google.com/webstore/detail/dmmpornstars/loclodoeiomdlienjjoolcjjh
 
 もし GitHub アカウントを持っていれば自由に Issue を作ることが出来ます。
 
-そうでなければ @og24715 に Twitter で声をかけてください。
+そうでなければ [@og24715](https://twitter.com/og24715) に Twitter で声をかけてください。
 
 Pull Request は歓迎します！なにかを改善したいときは気軽に Issue を開き議論しましょう。
 
