@@ -5,7 +5,7 @@
   "manifest_version": 2,
   "content_scripts": [
    {
-     "matches": ["http://www.dmm.co.jp/digital/videoa/-/detail/*"],
+     "matches": ["*://www.dmm.co.jp/digital/videoa/-/detail/*"],
      "js": ["detail.bundle.js"]
    }
  ],
