@@ -16,7 +16,7 @@ jobs:
           name: Build Chrome Extension
           command: yarn build
       - persist_to_workspace:
-          root: /chrome
+          root: chrome
           paths:
             - dist
       - save_cache:
@@ -29,7 +29,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /chrome
+          at: chrome
       - run:
           name: Create zip
           command: zip -j chrome.zip chrome/dist/*
