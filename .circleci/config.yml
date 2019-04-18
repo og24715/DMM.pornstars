@@ -28,6 +28,7 @@ jobs:
       - image: debian:stretch
     steps:
       - checkout
+      - run: apk add --no-cache ca-certificates
       - attach_workspace:
           at: chrome
       - run:
@@ -42,6 +43,7 @@ jobs:
       - image: debian:stretch
     steps:
       - checkout
+      - run: apk add --no-cache ca-certificates
       - attach_workspace:
           at: .
       - run:
