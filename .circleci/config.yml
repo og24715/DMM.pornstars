@@ -77,6 +77,16 @@ workflows:
       - create-release:
           requires:
             - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
       - publish-github-release:
           requires:
             - create-release
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
