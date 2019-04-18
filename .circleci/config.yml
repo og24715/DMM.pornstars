@@ -3,7 +3,7 @@ jobs:
   release:
     docker:
       - image: circleci/node:8
-    step:
+    steps:
       - checkout
       - restore_cache:
           keys:
