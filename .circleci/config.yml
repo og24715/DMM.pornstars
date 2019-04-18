@@ -1,16 +1,70 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
       - image: debian:stretch
-
     steps:
       - checkout
-
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
       - run:
-          name: Greeting
-          command: echo Hello, world.
-
+          name: Install dependencies
+          command: yarn
       - run:
-          name: Print the Current Time
-          command: date
+          name: Build Chrome Extension
+          command: yarn build
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+  create-release:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Create zip
+          command: yarn zip
+  publish-github-release:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: "Display environment variables"
+          command: |
+            echo ${GITHUB_TOKEN}
+            echo ${CIRCLE_PROJECT_USERNAME}
+            echo ${CIRCLE_PROJECT_REPONAME}
+            echo ${CIRCLE_SHA1}
+            echo ${CIRCLE_TAG}
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            go get github.com/tcnksm/ghr
+            ghr \
+              -t ${GITHUB_TOKEN} \
+              -u ${CIRCLE_PROJECT_USERNAME} \
+              -r ${CIRCLE_PROJECT_REPONAME} \
+              -c ${CIRCLE_SHA1} \
+              -delete \
+              ${CIRCLE_TAG} chrome.zip
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
+      - create-release:
+          requires:
+            - build
+      - publish-github-release:
+          requires:
+            - create-release
