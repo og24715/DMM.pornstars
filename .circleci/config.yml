@@ -15,23 +15,35 @@ jobs:
       - run:
           name: Build Chrome Extension
           command: yarn build
+      - persist_to_workspace:
+          root: /chrome
+          paths:
+            - dist
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "yarn.lock" }}
   create-release:
     docker:
-      - image: circleci/node:8
+      - image: debian:stretch
     steps:
       - checkout
+      - attach_workspace:
+          at: /chrome
       - run:
           name: Create zip
-          command: yarn zip
+          command: zip -j chrome.zip chrome/dist/*
+      - persist_to_workspace:
+          root: .
+          paths:
+            - chrome.zip
   publish-github-release:
     docker:
       - image: debian:stretch
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: "Display environment variables"
           command: |
@@ -54,7 +66,7 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test:
+  build-n-publish:
     jobs:
       - build:
           filters:
