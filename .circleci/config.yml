@@ -1,9 +1,9 @@
 version: 2.1
 jobs:
-  build:
+  release:
     docker:
       - image: circleci/node:8
-    steps:
+    step:
       - checkout
       - restore_cache:
           keys:
@@ -23,37 +23,9 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "yarn.lock" }}
-  create-release:
-    docker:
-      - image: debian:stretch
-    steps:
-      - checkout
-      - run: apk add --no-cache ca-certificates
-      - attach_workspace:
-          at: chrome
       - run:
           name: Create zip
           command: zip -j chrome.zip chrome/dist/*
-      - persist_to_workspace:
-          root: .
-          paths:
-            - chrome.zip
-  publish-github-release:
-    docker:
-      - image: debian:stretch
-    steps:
-      - checkout
-      - run: apk add --no-cache ca-certificates
-      - attach_workspace:
-          at: .
-      - run:
-          name: "Display environment variables"
-          command: |
-            echo ${GITHUB_TOKEN}
-            echo ${CIRCLE_PROJECT_USERNAME}
-            echo ${CIRCLE_PROJECT_REPONAME}
-            echo ${CIRCLE_SHA1}
-            echo ${CIRCLE_TAG}
       - run:
           name: "Publish Release on GitHub"
           command: |
@@ -70,23 +42,7 @@ workflows:
   version: 2
   build-n-publish:
     jobs:
-      - build:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /.*/
-      - create-release:
-          requires:
-            - build
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /.*/
-      - publish-github-release:
-          requires:
-            - create-release
+      - release:
           filters:
             branches:
               ignore: /.*/
