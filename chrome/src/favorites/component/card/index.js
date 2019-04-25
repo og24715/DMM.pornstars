@@ -68,7 +68,7 @@ function FollowingCard({ item }) {
         <CardMedia
           image={item.coverArtUrl}
           title={item.name}
-          style={{ height: 250 }}
+          style={{ paddingBottom: '67%' }}
         />
         <CardActions disableActionSpacing>
           <Button
