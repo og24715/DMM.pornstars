@@ -1,21 +1,27 @@
 {
   "name": "DMM.pornstars",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "DMM.com でお気に入りのAV女優をフォローし、その一覧を表示できるようにする拡張機能です。",
   "manifest_version": 2,
   "content_scripts": [
-   {
-     "matches": ["*://www.dmm.co.jp/digital/videoa/-/detail/*"],
-     "js": ["detail.bundle.js"]
-   }
- ],
- "background": {
-   "scripts": ["background.bundle.js"],
-   "persistent": false
- },
- "browser_action": {
- },
- "permissions": [
-   "storage", "tabs"
- ]
+    {
+      "matches": [
+        "*://www.dmm.co.jp/digital/videoa/-/detail/*"
+      ],
+      "js": [
+        "detail.bundle.js"
+      ]
+    }
+  ],
+  "background": {
+    "scripts": [
+      "background.bundle.js"
+    ],
+    "persistent": false
+  },
+  "browser_action": {},
+  "permissions": [
+    "storage",
+    "tabs"
+  ]
 }
