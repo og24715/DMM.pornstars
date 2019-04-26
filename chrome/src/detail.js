@@ -1,36 +1,38 @@
-const createFollowButtons = () => {
-  const performerLinks = document.querySelectorAll('#performer > a');
-  const coverArtUrl = document.querySelector('[name=package-image]').href;
-  const handleClickFollowButton = newFollowing => () => {
-    console.log('newFollowing', newFollowing);
+import { addPornstar } from './utils/chrome';
 
-    chrome.storage.local.get('following', ({ following = [] }) => {
-      const index = following.findIndex(performer => performer.id === newFollowing.id);
+console.log('Running DMM.pornstar');
 
-      if (index === -1) {
-        following.push(newFollowing);
-      } else {
-        following.splice(index, 1, newFollowing);
-      }
+function createFollowPornstarButton(data) {
+  function handleClick() {
+    addPornstar(data);
+  }
 
-      chrome.storage.local.set({ following }, () => {
-        console.log('Value is set to', following);
-      });
-    });
+  const followButton = document.createElement('button', { type: 'button' });
+  followButton.innerHTML = 'お気に入り';
+  followButton.addEventListener('click', handleClick);
+
+  return followButton;
+}
+
+function getPornstarData(link) {
+  const regex = /digital\/videoa\/-\/list\/=\/article=(.*)\/id=(\d*)\//;
+  const [, type, id] = regex.exec(link);
+  const data = {
+    type,
+    id,
+    name: link.innerText,
   };
 
+  return data;
+}
+
+const insertFollowButtonBehindPornstarNames = () => {
+  const performerLinks = document.querySelectorAll('#performer > a');
+  const coverArtUrl = document.querySelector('[name=package-image]').href;
+
   [...performerLinks].forEach((link) => {
-    const [, type, id] = /digital\/videoa\/-\/list\/=\/article=(.*)\/id=(\d*)\//.exec(link);
-    const performer = {
-      type,
-      id,
-      name: link.innerText,
-    };
-
-    const followButton = document.createElement('button', { type: 'button' });
-    followButton.innerHTML = 'follow';
-    followButton.addEventListener('click', handleClickFollowButton({ ...performer, coverArtUrl }));
-
+    const data = getPornstarData(link);
+    const followButton = createFollowPornstarButton({ ...data, coverArtUrl });
     const performerSpan = document.createElement('span');
     performerSpan.append(link.cloneNode(true), followButton);
 
@@ -38,4 +40,4 @@ const createFollowButtons = () => {
   });
 };
 
-createFollowButtons();
+insertFollowButtonBehindPornstarNames();

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import ViewModuleIcon from '@material-ui/icons/ViewModule';
-import ViewComfyIcon from '@material-ui/icons/ViewComfy';
 import styled from 'styled-components';
 
+import { getPornstars } from '../utils/chrome';
 import Navbar from './component/navbar';
 import Card from './component/card';
+import Cards from './component/cards';
+import ViewMode from './component/viewmode';
 
 const ApplicationWrapper = styled.div``;
 
@@ -17,19 +16,18 @@ const Main = styled.main`
   padding-right: 40px;
 `;
 
-const App = () => {
-  const [followingPornstars, setFollowingPornstars] = useState([]);
-  const [cardCol, setCardCol] = useState(3);
+function App() {
+  const [favouritePornstars, setFavoritePornstars] = useState([]);
+  const [cardsCol, setCardsCol] = useState(3);
 
   useEffect(() => {
-    chrome.storage.local.get('following', ({ following = [] }) => {
-      // const types = [...new Set(following.map(item => item.type))];
-      setFollowingPornstars(following.reverse());
+    getPornstars(({ following = [] }) => {
+      setFavoritePornstars(following.reverse());
     });
-  });
+  }, []);
 
-  function handleClickToggleViewMode() {
-    setCardCol(cardCol === 3 ? 4 : 3);
+  function handleToggleViewMode() {
+    setCardsCol(cardsCol === 3 ? 4 : 3);
   }
 
   return (
@@ -38,30 +36,29 @@ const App = () => {
 
       <Main>
         <Toolbar>
-          <Typography variant="h6" component="h2" style={{ flexGrow: 1 }}>
-            {followingPornstars.length}
+          <Typography
+            variant="h6"
+            color="textSecondary"
+            style={{ flexGrow: 1 }}
+          >
+            {favouritePornstars.length}
             名のお気に入り女優
           </Typography>
 
-          <IconButton onClick={handleClickToggleViewMode}>
-            {cardCol === 4 ? (
-              <ViewModuleIcon />
-            ) : (
-              <ViewComfyIcon />
-            )}
-          </IconButton>
+          <ViewMode
+            col={cardsCol}
+            onToggle={handleToggleViewMode}
+          />
         </Toolbar>
 
-        <Grid container spacing={16}>
-          {followingPornstars.map(pornstar => (
-            <Grid item xs={12 / cardCol} key={pornstar.name}>
-              <Card item={pornstar}/>
-            </Grid>
-          ))}
-        </Grid>
+        <Cards
+          col={cardsCol}
+          items={favouritePornstars}
+          itemRenderer={Card}
+        />
       </Main>
     </ApplicationWrapper>
   );
-};
+}
 
 export default App;
