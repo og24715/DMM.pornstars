@@ -1,3 +1,3 @@
-export const pornstarBaseUrl = 'http://www.dmm.co.jp/digital/videoa/-/list/=/article=actress/id=';
+export const pornstarBaseUrl = 'https://video.dmm.co.jp/av/list/?actress=';
 export const wikipediaBaseUrl = 'https://ja.wikipedia.org/wiki/';
 export const avNameBaseUrl = 'https://seesaawiki.jp/av_neme/d/';

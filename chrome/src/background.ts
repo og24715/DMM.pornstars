@@ -11,6 +11,6 @@ const openOrFocusOptionsPage = (): void => {
   });
 };
 
-chrome.browserAction.onClicked.addListener(() => {
+chrome.action.onClicked.addListener(() => {
   openOrFocusOptionsPage();
 });
