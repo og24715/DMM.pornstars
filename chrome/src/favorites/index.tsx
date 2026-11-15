@@ -6,7 +6,4 @@ import App from './App';
 const root = document.querySelector('#root');
 console.log(root);
 
-ReactDOM.render(
-  <App />,
-  root,
-);
+ReactDOM.render(<App />, root);

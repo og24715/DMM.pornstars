@@ -4,6 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import styled from 'styled-components';
 
 import { getPornstars } from '../utils/chrome';
+import type { Pornstar } from '../types';
 import Navbar from './component/navbar';
 import Card from './component/card';
 import Cards from './component/cards';
@@ -17,16 +18,16 @@ const Main = styled.main`
 `;
 
 function App() {
-  const [favouritePornstars, setFavoritePornstars] = useState([]);
+  const [favouritePornstars, setFavoritePornstars] = useState<Pornstar[]>([]);
   const [cardsCol, setCardsCol] = useState(3);
 
   useEffect(() => {
     getPornstars(({ following = [] }) => {
-      setFavoritePornstars(following.reverse());
+      setFavoritePornstars([...following].reverse());
     });
   }, []);
 
-  function handleToggleViewMode() {
+  function handleToggleViewMode(): void {
     setCardsCol(cardsCol === 3 ? 4 : 3);
   }
 
@@ -45,17 +46,10 @@ function App() {
             名のお気に入り女優
           </Typography>
 
-          <ViewMode
-            col={cardsCol}
-            onToggle={handleToggleViewMode}
-          />
+          <ViewMode col={cardsCol} onToggle={handleToggleViewMode} />
         </Toolbar>
 
-        <Cards
-          col={cardsCol}
-          items={favouritePornstars}
-          itemRenderer={Card}
-        />
+        <Cards col={cardsCol} items={favouritePornstars} itemRenderer={Card} />
       </Main>
     </ApplicationWrapper>
   );

@@ -27,6 +27,20 @@ https://chrome.google.com/webstore/detail/dmmpornstars/loclodoeiomdlienjjoolcjjh
 
 フォローした女優の名前の隣に more vert icon が見えますか？それをクリックするとその女優の詳細を [Wikipedia](https://ja.wikipedia.org/wiki) と [このAV女優の名前教えてwiki](https://seesaawiki.jp/av_neme) で見ることが出来ます。
 
+## 開発
+
+ビルドには Node.js 20 以上（`.nvmrc` は 24）が必要です。バンドラは Vite、ソースは TypeScript です。
+
+```sh
+npm ci          # 依存関係のインストール
+npm run build   # 型チェック + ビルド（出力先: chrome/dist/）
+npm start       # ウォッチモードでビルド
+npm run zip     # chrome/dist/ を chrome.zip に固める
+```
+
+`chrome/dist/` を Chrome の拡張機能ページで「パッケージ化されていない拡張機能を読み込む」から読み込むと動作確認できます。
+タグを push すると GitHub Actions がビルドして chrome.zip を GitHub Release に公開します。
+
 ## 貢献したいですか？
 
 不具合がありますか？追加してほしい機能がありますか？

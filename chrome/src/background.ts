@@ -1,9 +1,10 @@
-const openOrFocusOptionsPage = () => {
+const openOrFocusOptionsPage = (): void => {
   const favoritesUrl = chrome.runtime.getURL('favorites.html');
 
   chrome.tabs.query({ url: favoritesUrl }, (tabs) => {
-    if (tabs.length) {
-      chrome.tabs.update(tabs[0].id, { active: true });
+    const [tab] = tabs;
+    if (tab && tab.id !== undefined) {
+      chrome.tabs.update(tab.id, { active: true });
     } else {
       chrome.tabs.create({ url: favoritesUrl });
     }

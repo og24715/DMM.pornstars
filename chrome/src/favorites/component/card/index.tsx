@@ -16,15 +16,20 @@ import {
   wikipediaBaseUrl,
   avNameBaseUrl,
 } from '../../../Constants';
+import type { Pornstar } from '../../../types';
 
-function FollowingCard({ item }) {
-  const [anchorEl, setAnchorEl] = useState(null);
+interface FollowingCardProps {
+  item: Pornstar;
+}
 
-  function handleClickMoreVert(event) {
+function FollowingCard({ item }: FollowingCardProps) {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  function handleClickMoreVert(event: React.MouseEvent<HTMLElement>): void {
     setAnchorEl(event.currentTarget);
   }
 
-  function handleCloseMenuRequest() {
+  function handleCloseMenuRequest(): void {
     setAnchorEl(null);
   }
 
@@ -34,16 +39,14 @@ function FollowingCard({ item }) {
     <>
       <Card>
         <CardHeader
-          avatar={(
-            <Avatar aria-label={item.name}>
-              {item.name.slice(0, 1)}
-            </Avatar>
-          )}
-          action={(
+          avatar={
+            <Avatar aria-label={item.name}>{item.name.slice(0, 1)}</Avatar>
+          }
+          action={
             <IconButton onClick={handleClickMoreVert}>
               <MoreVertIcon />
             </IconButton>
-          )}
+          }
           title={item.name}
         />
         <CardMedia
