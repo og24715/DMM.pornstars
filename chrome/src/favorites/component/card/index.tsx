@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import CardActions from '@mui/material/CardActions';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import Encoding from 'encoding-japanese';
 
 import {
@@ -16,15 +16,20 @@ import {
   wikipediaBaseUrl,
   avNameBaseUrl,
 } from '../../../Constants';
+import type { Pornstar } from '../../../types';
 
-function FollowingCard({ item }) {
-  const [anchorEl, setAnchorEl] = useState(null);
+interface FollowingCardProps {
+  item: Pornstar;
+}
 
-  function handleClickMoreVert(event) {
+function FollowingCard({ item }: FollowingCardProps) {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  function handleClickMoreVert(event: React.MouseEvent<HTMLElement>): void {
     setAnchorEl(event.currentTarget);
   }
 
-  function handleCloseMenuRequest() {
+  function handleCloseMenuRequest(): void {
     setAnchorEl(null);
   }
 
@@ -34,16 +39,14 @@ function FollowingCard({ item }) {
     <>
       <Card>
         <CardHeader
-          avatar={(
-            <Avatar aria-label={item.name}>
-              {item.name.slice(0, 1)}
-            </Avatar>
-          )}
-          action={(
+          avatar={
+            <Avatar aria-label={item.name}>{item.name.slice(0, 1)}</Avatar>
+          }
+          action={
             <IconButton onClick={handleClickMoreVert}>
               <MoreVertIcon />
             </IconButton>
-          )}
+          }
           title={item.name}
         />
         <CardMedia
@@ -51,7 +54,7 @@ function FollowingCard({ item }) {
           title={item.name}
           style={{ paddingBottom: '67%' }}
         />
-        <CardActions disableActionSpacing>
+        <CardActions>
           <Button
             color="primary"
             component="a"
