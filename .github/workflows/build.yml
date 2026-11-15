@@ -49,6 +49,9 @@ jobs:
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
+          # The release job has no checkout, so gh cannot infer the repo
+          # from a local git remote; tell it explicitly.
+          GH_REPO: ${{ github.repository }}
         run: |
           gh release upload "${GITHUB_REF_NAME}" chrome.zip --clobber \
           || gh release create "${GITHUB_REF_NAME}" chrome.zip --title "${GITHUB_REF_NAME}"
