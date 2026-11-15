@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@mui/material/Typography';
+import Toolbar from '@mui/material/Toolbar';
 import styled from 'styled-components';
 
 import { getPornstars } from '../utils/chrome';
@@ -39,7 +39,7 @@ function App() {
         <Toolbar>
           <Typography
             variant="h6"
-            color="textSecondary"
+            color="text.secondary"
             style={{ flexGrow: 1 }}
           >
             {favouritePornstars.length}

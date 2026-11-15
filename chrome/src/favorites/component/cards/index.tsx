@@ -1,5 +1,5 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import type { Pornstar } from '../../../types';
 
 interface CardsProps {
@@ -10,9 +10,10 @@ interface CardsProps {
 
 function Cards({ items, col, itemRenderer: ItemRenderer }: CardsProps) {
   return (
-    <Grid container spacing={24}>
+    // spacing={3} is 24px, the same gap the Material-UI v3 `spacing={24}` produced.
+    <Grid container spacing={3}>
       {items.map((item) => (
-        <Grid item xs={(12 / col) as 3 | 4} key={item.name}>
+        <Grid size={12 / col} key={item.name}>
           <ItemRenderer item={item} />
         </Grid>
       ))}
