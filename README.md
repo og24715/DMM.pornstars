@@ -1,5 +1,13 @@
 # DMM.pornstars
 
+## お知らせ: この拡張機能はアーカイブされました
+
+FANZA 公式に女優のブックマーク機能が追加され、お気に入りの出演者を公式サイト上でフォロー・一覧表示できるようになりました。
+
+- 公式ブックマーク: https://video.dmm.co.jp/bookmark-actress/
+
+本拡張機能の役割は公式機能に引き継がれたため、開発を終了し、このリポジトリをアーカイブします。最終リリースは [1.4.0](https://github.com/og24715/DMM.pornstars/releases/tag/1.4.0) です。今後は公式のブックマーク機能をご利用ください。
+
 ![demo](https://user-images.githubusercontent.com/8489199/54007150-c01b4c80-41a3-11e9-9957-bd0bbf80ac37.gif)
 
 ## DMM.pornstars とはなんですか？
